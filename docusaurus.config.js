@@ -9,7 +9,7 @@ module.exports = {
   baseUrl: '/',
   trailingSlash: false,
   onBrokenLinks: 'throw',
-  deploymentBranch: 'master',
+  deploymentBranch: 'main',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'internaloha', // Usually your GitHub org/user name.
