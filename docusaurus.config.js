@@ -4,8 +4,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'InternAloha',
-  tagline: 'Finding internships for Hawaii CS students with aloha since 2020',
-  url: 'https://morea-framework.github.io',
+  tagline: 'Finding internships for Hawaii computer science students with aloha since 2020',
+  url: 'https://internaloha.github.io',
   baseUrl: '/',
   trailingSlash: false,
   onBrokenLinks: 'throw',
