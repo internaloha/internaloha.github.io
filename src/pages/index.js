@@ -12,7 +12,7 @@ const features = [
     imageUrl: '',
     description: (
       <>
-        Just specify your skills and interests and we'll find matching internships
+        Just specify your skills and interests in RadGrad, and it will automatically show you matching Internships.
       </>
     ),
   },
