@@ -4,7 +4,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'InternAloha',
-  tagline: 'Finding internships for Hawaii computer science students with aloha since 2020',
+  tagline: 'Finding internships for Hawaii CS students with aloha since 2020',
   url: 'https://internaloha.github.io',
   baseUrl: '/',
   trailingSlash: false,
@@ -18,6 +18,7 @@ module.exports = {
     navbar: { title: 'InternAloha', logo: { alt: 'InternAloha', src: 'img/internaloha-logo.png', },
       items: [
         { to: 'docs/overview/motivation', activeBasePath: 'docs', label: 'Documentation', position: 'right', },
+        { href: 'https://github.com/internaloha/scrapers/projects/1', label: 'Project Board', position: 'right', },
         { href: 'https://github.com/internaloha', label: 'GitHub', position: 'right', },
       ],
     },
