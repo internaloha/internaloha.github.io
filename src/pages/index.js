@@ -9,12 +9,14 @@ import HomepageFeatures from '../components/HomepageFeatures';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
+      <main>
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <h1 style={{color: 'white'}} className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
       </div>
     </header>
+      </main>
   );
 }
 
@@ -25,9 +27,6 @@ export default function Home() {
       title="Home"
       description="Modules, Outcomes, Readings, Experiences, Assessments">
       <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
     </Layout>
   );
 }
