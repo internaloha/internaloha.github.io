@@ -90,7 +90,7 @@ await page.evaluate(() => {
 
 We definitely want to avoid "fake events", because certain sites might use them to bar us from scraping them. Note that it's OK to use page.evaluate() if you aren't generating events (i.e. you are just inspecting the page contents).  You should avoid things like .click() inside page.evaluate().
 
-## Prefer await super.getValues()
+## Prefer await super.getValues() or super.getValue()
 
 Many scrapers implement code similar to this:
 
@@ -116,9 +116,22 @@ async getValues(selector, field) {
 
 This is used sufficiently often that it is now present in the Scraper.ts superclass. So, you should replace code similar to oldVersionOfGetValues with super.getValues().
 
-## Page navigation pattern
+If you are only looking for a single instance of the element, then use super.getValue(), which returns the element directly, not in a list.
 
-There is a standard pattern for when your script performs an action (such as logging in or clicking a button) that results in page navigation. It looks like this:
+## Page navigation patterns
+
+There are two standard ways to navigate:
+
+  1. Request a url directly.
+  2. Click on a button or a link to navigate.
+
+In the first case, you use super.goto(). For example:
+
+```js
+await super.goto(this.url);
+```
+
+In the case of following a link or clicking a button, you need to use a more complicated piece of code:
 
 ```js
 await Promise.all([
@@ -127,11 +140,11 @@ await Promise.all([
 ]);
 ```
 
-The idea is that you have to combine the page.waitForNavigation() with the page.click() (or whatever) in a Promise.all() so that you don't proceed to the next command until both have completed. Doing them serially won't work.
+This code ensures that both the click() and the waitForNavigation() complete before the script proceeds to the next command.
 
 For more details, see [https://pptr.dev/#?product=Puppeteer&version=v10.4.0&show=api-pagewaitfornavigationoptions](https://pptr.dev/#?product=Puppeteer&version=v10.4.0&show=api-pagewaitfornavigationoptions).
 
-Note: if you use `page.goto()`, you don't need to add `page.waitForNavigation()`.  See [https://stackoverflow.com/a/57881877/2038293](https://stackoverflow.com/a/57881877/2038293) for details.
+Just to be clear: if you use `super.goto()`, you don't need to add `page.waitForNavigation()`.  See [https://stackoverflow.com/a/57881877/2038293](https://stackoverflow.com/a/57881877/2038293) for details.
 
 ## Prefer await super.selectorExists()
 

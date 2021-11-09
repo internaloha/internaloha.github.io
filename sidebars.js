@@ -15,6 +15,8 @@ module.exports = {
       'developers/legal',
       'developers/test-scraper',
       'developers/resources',
+      'developers/review-2021-11-08',
+
     ],
     Documentation: [
       'documentation/manage-this-site',
