@@ -9,6 +9,7 @@ module.exports = {
       'developers/overview',
       'developers/installation',
       'developers/invocation',
+      'developers/process-listings',
       'developers/implementation',
       'developers/production',
       'developers/tips',

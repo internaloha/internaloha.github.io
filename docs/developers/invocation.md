@@ -1,5 +1,5 @@
 ---
-title: Invocation
+title: Basic Invocation
 ---
 
 ## `npm run scrape -- -s <scraper>`
