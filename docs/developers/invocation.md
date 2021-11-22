@@ -65,11 +65,31 @@ Options:
 
 You can provide any combination of these parameters, in any order.  The only required parameter is the scraper.
 
-## Why no multi-scraper invocation?
+## Multi-scraper invocation
 
 In the previous version of the scraper, we discovered that puppeteer is not "thread safe", in the sense that running multiple scrapers simultaneously can result in execution errors that do not appear when running each scraper individually.
 
-To avoid this problem, the `scrape` script supports running of only a single scraper. To support batch execution of multiple scrapers, we have created a Unix shell script (run-scrapers.sh) that invokes the `scrape` script multiple times, once per scraper. This will isolate each run of the scraper in its own OS process and prevent these sorts of problems from occurring. We will create a Windows version of this script eventually.
+To avoid this problem, the `scrape` script supports running of only a single scraper. To support batch execution of multiple scrapers, we have created a Unix shell script (run-scrapers.sh) that invokes the `scrape` script multiple times, once per scraper. This will isolate each run of the scraper in its own OS process and prevent these sorts of problems from occurring.
+
+The problem with run-scrapers.sh is that it serializes execution, so the overall time to run the scrapers is sum of all individual execution times.  A simple way to reduce the overall time is to create one shell per scraper and invoke each scraper in each shell manually. It takes a couple of minutes to set it up, but now the overall time to run all of the scrapers is reduced to the time required to run the slowest scraper. Here's a screenshot illustrating this technique:
+
+<img src="/img/scrapers-multiple-windows.png"/>
+
+Note that after running the scrapers like this, you must run the statistics script manually to collect the data:
+
+```
+$ npm run statistics -- -cf true
+
+> scraper@2.0.0 statistics
+> ts-node -P tsconfig.buildScripts.json statistics.ts "-cf" "true"
+
+Wrote statistics/compsci/statistics.num-listings.csv.
+Wrote statistics/compsci/statistics.num-errors.csv.
+Wrote statistics/compsci/statistics.elapsed-time.csv.
+```
+
+After that, be sure to commit the listings and statistics files to GitHub.
+
 
 ## Example: NSF Scraper
 
@@ -183,7 +203,7 @@ Options:
   -h, --help                             display help for command
 ```
 
-## Development mode (don't commit output files)
+## Development mode
 
 During development, people will be running scrapers and generating both listing and statistics "output" files in their branches.  This could lead to lots of spurious merge conflicts when trying to merge your branches back into main.
 
